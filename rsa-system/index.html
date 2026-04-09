@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RSA Encryption System</title>
+    <meta name="description" content="A beautiful and interactive RSA encryption and decryption system.">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <header class="header">
+            <div class="logo">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"></path>
+                </svg>
+                <h1>RSA System</h1>
+            </div>
+            <p class="subtitle">Secure encryption algorithm implementation</p>
+        </header>
+
+        <main class="dashboard">
+            <!-- 1 & 3: RSA Parameters -->
+            <section class="card parameters-section">
+                <div class="card-header">
+                    <h2>1. RSA Parameters</h2>
+                </div>
+                <div class="card-body">
+                    <div class="input-group-row">
+                        <div class="input-group">
+                            <label for="prime-p">Prime (p)</label>
+                            <input type="number" id="prime-p" placeholder="e.g. 61">
+                        </div>
+                        <div class="input-group">
+                            <label for="prime-q">Prime (q)</label>
+                            <input type="number" id="prime-q" placeholder="e.g. 53">
+                        </div>
+                    </div>
+                    <button class="btn btn-primary" id="btn-calc-params">Calculate RSA Params</button>
+                    
+                    <div class="results-container mt-4">
+                        <div class="result-box">
+                            <span class="label">n = p × q</span>
+                            <div class="value" id="val-n">-</div>
+                        </div>
+                        <div class="result-box">
+                            <span class="label">φ(n)</span>
+                            <div class="value" id="val-phi">-</div>
+                        </div>
+                        <div class="result-box">
+                            <span class="label">Public Exponent (e)</span>
+                            <div class="value" id="val-e">-</div>
+                        </div>
+                        <div class="result-box">
+                            <span class="label">Private Exponent (d)</span>
+                            <div class="value" id="val-d">-</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 2, 4, 5, 6, 7: Interacting with text -->
+            <div class="action-grid">
+                <!-- Encryption Section -->
+                <section class="card encrypt-section">
+                    <div class="card-header">
+                        <h2>2. Encryption</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="input-group">
+                            <label for="plaintext">Plaintext</label>
+                            <textarea id="plaintext" rows="4" placeholder="Enter message to encrypt..."></textarea>
+                        </div>
+                        <button class="btn btn-secondary" id="btn-encrypt">Encrypt Message</button>
+                        
+                        <div class="input-group mt-4">
+                            <label>Ciphertext Result</label>
+                            <div class="output-box" id="ciphertext-out">Encryption output will appear here</div>
+                        </div>
+                        <div class="button-row mt-4">
+                            <button class="btn btn-outline" id="btn-save-file">Save to File</button>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Decryption Section -->
+                <section class="card decrypt-section">
+                    <div class="card-header">
+                        <h2>3. Decryption</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="input-group">
+                            <label for="ciphertext">Ciphertext</label>
+                            <textarea id="ciphertext" rows="4" placeholder="Enter ciphertext to decrypt... (or load from file)"></textarea>
+                        </div>
+                        <div class="button-row mb-4">
+                            <button class="btn btn-outline" id="btn-load-file">Load from File</button>
+                            <input type="file" id="file-input" style="display: none;" accept=".txt,.json">
+                        </div>
+                        <button class="btn btn-secondary" id="btn-decrypt">Decrypt Message</button>
+                        
+                        <div class="input-group mt-4">
+                            <label>Plaintext Result</label>
+                            <div class="output-box" id="plaintext-out">Decryption output will appear here</div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <script src="rsa.js"></script>
+</body>
+</html>
