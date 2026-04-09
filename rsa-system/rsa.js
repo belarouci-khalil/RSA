@@ -3,6 +3,16 @@
  */
 
 // Math Utilities
+function isPrime(num) {
+    if (num <= 1) return false;
+    if (num <= 3) return true;
+    if (num % 2 === 0 || num % 3 === 0) return false;
+    for (let i = 5; i * i <= num; i += 6) {
+        if (num % i === 0 || num % (i + 2) === 0) return false;
+    }
+    return true;
+}
+
 function gcd(a, b) {
     while (b !== 0) {
         let temp = b;
@@ -94,6 +104,9 @@ function encrypt(text, e, n) {
     const ciphertext = [];
     for (let i = 0; i < text.length; i++) {
         const charCode = text.charCodeAt(i);
+        if (charCode >= n) {
+            throw new Error(`Character '${text[i]}' (ASCII ${charCode}) is mathematically larger than or equal to n (${n}). RSA modulo arithmetic requires n > character value. Please use larger primes!`);
+        }
         ciphertext.push(modPow(charCode, e, n));
     }
     return ciphertext;
@@ -212,9 +225,15 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        // TODO: Validate that p and q are actually prime
-        
-        // TODO: Validate that p and q are actually prime
+        if (!isPrime(p) || !isPrime(q)) {
+            alert('Error: Both p and q MUST be valid prime numbers! RSA math will collapse otherwise.');
+            return;
+        }
+
+        if (p === q) {
+            alert('Error: p and q MUST be strictly distinct! If p = q, the Euler totient formula fails.');
+            return;
+        }
         
         try {
             const result = calculateRSA(p, q);
